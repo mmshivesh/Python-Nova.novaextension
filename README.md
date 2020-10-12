@@ -1,4 +1,4 @@
-# Jedi Language Server Implementation
+# Python Language Server (PyLS) Implementation
 
 🚧🚧 Under Development 🚧🚧
 
