@@ -7,7 +7,8 @@
     "categories": ["languages"],
     
     "main": "main.js",
-    
+    "bugs": "https://github.com/mmshivesh/PyLS-Nova.novaextension/issues",
+    "repository": "https://github.com/mmshivesh/PyLS-Nova.novaextension",
     "entitlements": {
         "process": true,
         "filesystem": "readonly"
