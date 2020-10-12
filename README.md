@@ -1,4 +1,6 @@
-# Python Language Server (PyLS) Implementation
+# Python Language Server (PyLS) for Nova
+
+A Python Language Server (PyLS) implementation for [Panic's Nova](https://nova.app) editor.
 
 🚧🚧 Under Development 🚧🚧
 

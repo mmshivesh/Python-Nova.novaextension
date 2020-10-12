@@ -1,9 +1,10 @@
 {
-    "identifier": "works.creativecode.JediLanguageServer-Nova",
-    "name": "Jedi Language Server",
+    "identifier": "works.creativecode.PyLS-Nova",
+    "name": "Python Language Server",
     "organization": "CreativeCodeWorks",
-    "description": "Jedi Language Server implementation for Nova",
-    "version": "1.0",
+    "description": "Python Language Server implementation for Nova",
+    "version": "0.0.1",
+    "license": "MIT",
     "categories": ["languages"],
     
     "main": "main.js",
@@ -30,6 +31,7 @@
                 },
                 {
                     "key": "pyls.configurationSources",
+                    "title": "Configuration Sources",
                     "type": "enum",
                     "values": ["pycodestyle", "pyflakes"],
                     "default": "pycodestyle",
@@ -118,29 +120,10 @@
             ]
         },
         {
-            "title": "Options",
-            "description": "Code Style Options",
+            "title": "Linting Options",
             "type": "section",
             "key": "works.creativecode.pylint.codeStyleCat",
             "children": [
-                {
-                    "key": "pyls.plugins.mccabe.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
-                    "key": "pyls.plugins.mccabe.threshold",
-                    "type": "number",
-                    "default": 15,
-                    "description": "The minimum threshold that triggers warnings about cyclomatic complexity."
-                },
-                {
-                    "key": "pyls.plugins.preload.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
                 {
                     "key": "pyls.plugins.pycodestyle.enabled",
                     "type": "boolean",
@@ -204,6 +187,31 @@
                     "type": "string",
                     "default": null,
                     "description": "Executable to run pylint with. Enabling this will run pylint on unsaved files via stdin. Can slow down workflow. Only works with python3."
+                }
+            ]
+        },
+        {
+            "title": "Other Options",
+            "type": "section",
+            "key": "works.creativecode.pylint.codeStyleCat",
+            "children": [
+                {
+                    "key": "pyls.plugins.mccabe.enabled",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable or disable the plugin."
+                },
+                {
+                    "key": "pyls.plugins.mccabe.threshold",
+                    "type": "number",
+                    "default": 15,
+                    "description": "The minimum threshold that triggers warnings about cyclomatic complexity."
+                },
+                {
+                    "key": "pyls.plugins.preload.enabled",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable or disable the plugin."
                 },
                 {
                     "key": "pyls.plugins.rope_completion.enabled",
@@ -223,14 +231,6 @@
                     "default": null,
                     "description": "Builtin and c-extension modules that are allowed to be imported and inspected by rope."
                 }
-            ]
-        },
-        {
-            "title": "Options",
-            "description": "Code Style Options",
-            "type": "section",
-            "key": "works.creativecode.pylint.codeStyleCat",
-            "children": [
             ]
         }
     ]
