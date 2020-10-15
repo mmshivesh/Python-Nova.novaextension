@@ -3,7 +3,7 @@
     "name": "Python Language Server",
     "organization": "CreativeCodeWorks",
     "description": "Python Language Server implementation for Nova",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "categories": ["languages"],
     
@@ -17,8 +17,8 @@
     
     "config": [
         {   
-            "title": "Options",
-            "description": "General Options.",
+            "title": "Basic Options",
+            "description": "Basic PyLS configutation options",
             "type": "section",
             "key": "works.creativecode.pyls.optionsSec",
             "children": [
@@ -30,92 +30,186 @@
                     "description": "Language server executable"
                 },
                 {
-                    "key": "pyls.configurationSources",
-                    "title": "Configuration Sources",
-                    "type": "enum",
-                    "values": ["pycodestyle", "pyflakes"],
-                    "default": "pycodestyle",
-                    "description": "List of configuration sources to use."
+                    "key": "pyls.logPath",
+                    "type": "path",
+                    "title": "Path to PyLS log File",
+                    "placeholder": "/tmp/pyls.log",
+                    "description": "PyLS log path"
                 }
             ]
         },
         {
-            "title": "Jedi Options",
-            "description": "Jedi Autocomplete Options",
+            "title": "Enable Modules",
+            "description": "Quickly Enable or disable PyLS modules",
             "type": "section",
-            "key": "works.creativecode.pylint.codeStyleCat",
+            "key": "works.creativecode.pyls.modulesSec",
             "children": [
+                {
+                    
+                    "key": "pyls.plugins.jedi.enabled",
+                    "type": "boolean",
+                    "title": "Enable Jedi",
+                    "default": true,
+                    "description": "Enable or disable the Base Jedi plugin."
+                },
                 {
                     "key": "pyls.plugins.jedi_completion.enabled",
                     "type": "boolean",
+                    "title": "Enable Jedi Completion",
                     "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
-                    "key": "pyls.plugins.jedi_completion.include_params",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Auto-completes methods and classes with tabstops for each parameter."
-                },
-                {
-                    "key": "pyls.plugins.jedi_completion.include_class_objects",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds class objects as a separate completion item."
-                },
-                {
-                    "key": "pyls.plugins.jedi_completion.fuzzy",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Enable fuzzy when requesting autocomplete."
+                    "description": "Enable or disable the Jedi Completion plugin."
                 },
                 {
                     "key": "pyls.plugins.jedi_definition.enabled",
                     "type": "boolean",
+                    "title": "Enable Jedi Definition",
                     "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
-                    "key": "pyls.plugins.jedi_definition.follow_imports",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "The goto call will follow imports."
-                },
-                {
-                    "key": "pyls.plugins.jedi_definition.follow_builtin_imports",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "If follow_imports is True will decide if it follow builtin imports."
+                    "description": "Enable or disable the Jedi Definition plugin."
                 },
                 {
                     "key": "pyls.plugins.jedi_hover.enabled",
                     "type": "boolean",
+                    "title": "Enable Jedi Hover",
                     "default": true,
-                    "description": "Enable or disable the plugin."
+                    "description": "Enable or disable the Jedi Hover plugin."
                 },
                 {
                     "key": "pyls.plugins.jedi_references.enabled",
                     "type": "boolean",
+                    "title": "Enable Jedi References",
                     "default": true,
-                    "description": "Enable or disable the plugin."
+                    "description": "Enable or disable the Jedi References plugin."
                 },
                 {
                     "key": "pyls.plugins.jedi_signature_help.enabled",
                     "type": "boolean",
+                    "title": "Enable Jedi Signature Help",
                     "default": true,
-                    "description": "Enable or disable the plugin."
+                    "description": "Enable or disable the Jedi function signature help plugin."
                 },
                 {
                     "key": "pyls.plugins.jedi_symbols.enabled",
                     "type": "boolean",
+                    "title": "Enable Jedi Symbols",
                     "default": true,
-                    "description": "Enable or disable the plugin."
+                    "description": "Enable or disable the Jedi symbols plugin."
                 },
                 {
-                    "key": "pyls.plugins.jedi_symbols.all_scopes",
+                    "key": "pyls.plugins.preload.enabled",
                     "type": "boolean",
+                    "title": "Enable Preload",
                     "default": true,
-                    "description": "If True lists the names of all scopes instead of only the module namespace."
+                    "description": "Enable or disable preload module plugin."
+                },
+                {
+                    "key": "pyls.plugins.rope_completion.enabled",
+                    "type": "boolean",
+                    "title": "Enable Rope Completion",
+                    "default": false,
+                    "description": "Enable or disable the Rope based completion plugin."
+                },
+                {
+                    "key": "pyls.plugins.yapf.enabled",
+                    "type": "boolean",
+                    "title": "Enable YAPF",
+                    "default": true,
+                    "description": "Enable or disable the YAPF plugin."
+                },
+                {
+                    "key": "pyls.plugins.mccabe.enabled",
+                    "type": "boolean",
+                    "title": "Enable McCabe",
+                    "default": true,
+                    "description": "Enable or disable the McCabe plugin."
+                },
+                {
+                    "key": "pyls.plugins.pydocstyle.enabled",
+                    "type": "boolean",
+                    "title": "Enable PyDocStyle",
+                    "default": false,
+                    "description": "Enable or disable the PyDocStyle plugin."
+                },
+                {
+                    "key": "pyls.plugins.pycodestyle.enabled",
+                    "type": "boolean",
+                    "title": "Enable PyCodeStyle",
+                    "default": true,
+                    "description": "Enable or disable the PyCodeStyle plugin."
+                },
+                {
+                    "key": "pyls.plugins.pyflakes.enabled",
+                    "type": "boolean",
+                    "title": "Enable PyFlakes",
+                    "default": true,
+                    "description": "Enable or disable the PyFlakes plugin."
+                },
+                {
+                    "key": "pyls.plugins.pylint.enabled",
+                    "type": "boolean",
+                    "title": "Enable PyLint",
+                    "default": false,
+                    "description": "Enable or disable the PyLint plugin."
+                }
+            ]
+        },
+        {
+            "title": "Module Options",
+            "description": "Options for PyLS modules.",
+            "type": "section",
+            "key": "works.creativecode.pylint.codeStyleCat",
+            "children": [
+                {
+                    "title": "Jedi Completion",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.jediCompletionSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.jedi_completion.include_params",
+                            "type": "boolean",
+                            "title": "Include Function and Class Parameters",
+                            "default": true,
+                            "description": "Auto-completes methods and classes with tabstops for each parameter."
+                        },
+                        {
+                            "key": "pyls.plugins.jedi_completion.include_class_objects",
+                            "type": "boolean",
+                            "title": "Separate Class Objects in Completion",
+                            "default": true,
+                            "description": "Adds class objects as a separate completion item."
+                        },
+                        {
+                            "key": "pyls.plugins.jedi_completion.fuzzy",
+                            "type": "boolean",
+                            "title": "Enable Fuzzy auto-completion",
+                            "default": false,
+                            "description": "Enable fuzzy searching when requesting autocomplete."
+                        }
+                    ]
+                },
+                {
+                    "title": "Jedi Definition",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.jediDefinitionSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.jedi_definition.follow_imports",
+                            "type": "boolean",
+                            "default": true,
+                            "description": "The goto call will follow imports."
+                        },
+                        {
+                            "key": "pyls.plugins.jedi_definition.follow_builtin_imports",
+                            "type": "boolean",
+                            "default": true,
+                            "description": "If follow_imports is True will decide if it follow builtin imports."
+                        },
+                        {
+                            "key": "pyls.plugins.jedi_symbols.all_scopes",
+                            "type": "boolean",
+                            "default": true,
+                            "description": "If True lists the names of all scopes instead of only the module namespace."
+                        }
+                    ]
                 }
             ]
         },
@@ -124,12 +218,6 @@
             "type": "section",
             "key": "works.creativecode.pylint.codeStyleCat",
             "children": [
-                {
-                    "key": "pyls.plugins.pycodestyle.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
                 {
                     "key": "pyls.plugins.pycodestyle.hangClosing",
                     "type": "boolean",
@@ -141,12 +229,6 @@
                     "type": "number",
                     "default": null,
                     "description": "Set maximum allowed line length."
-                },
-                {
-                    "key": "pyls.plugins.pydocstyle.enabled",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Enable or disable the plugin."
                 },
                 {
                     "key": "pyls.plugins.pydocstyle.convention",
@@ -171,18 +253,6 @@
                     "description": "Search only dirs that exactly match the given regular expression; default is to match dirs which do not begin with a dot."
                 },
                 {
-                    "key": "pyls.plugins.pyflakes.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
-                    "key": "pyls.plugins.pylint.enabled",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Enable or disable the plugin."
-                },
-                {
                     "key": "pyls.plugins.pylint.executable",
                     "type": "string",
                     "default": null,
@@ -196,40 +266,24 @@
             "key": "works.creativecode.pylint.codeStyleCat",
             "children": [
                 {
-                    "key": "pyls.plugins.mccabe.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
                     "key": "pyls.plugins.mccabe.threshold",
                     "type": "number",
                     "default": 15,
                     "description": "The minimum threshold that triggers warnings about cyclomatic complexity."
                 },
                 {
-                    "key": "pyls.plugins.preload.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
-                    "key": "pyls.plugins.rope_completion.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
-                    "key": "pyls.plugins.yapf.enabled",
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable or disable the plugin."
-                },
-                {
                     "key": "pyls.rope.extensionModules", 
                     "type": "string",
                     "default": null,
                     "description": "Builtin and c-extension modules that are allowed to be imported and inspected by rope."
+                },
+                {
+                    "key": "pyls.configurationSources",
+                    "title": "Configuration Sources",
+                    "type": "enum",
+                    "values": ["pycodestyle", "pyflakes"],
+                    "default": "pycodestyle",
+                    "description": "List of configuration sources to use."
                 }
             ]
         }
