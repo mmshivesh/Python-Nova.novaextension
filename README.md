@@ -1,9 +1,6 @@
 # Python for Nova
 
-
-<p align="center">
-    <img src="https://raw.githubusercontent.com/mmshivesh/PyLS-Nova.novaextension/master/extension.png" align="left" height="128" width="128">
-</p>
+<img src="https://raw.githubusercontent.com/mmshivesh/PyLS-Nova.novaextension/master/extension.png" align="center" height="128" width="128">
 
 ![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Latest%20Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmmshivesh%2FPython-Nova.novaextension%2Fmaster%2Fextension.json)
 
