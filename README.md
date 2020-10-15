@@ -42,7 +42,7 @@ pip3 install 'python-language-server[all]'
 - `black` plugin: `pip3 install pyls-black`
 
 
-## Working
+## Features
 
 - Real time Linting (Pyflakes):
 
