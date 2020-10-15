@@ -1,8 +1,13 @@
 # Python for Nova
 
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/mmshivesh/PyLS-Nova.novaextension/master/extension.png" align="left" height="128" width="128">
+</p>
+
 ![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Latest%20Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmmshivesh%2FPython-Nova.novaextension%2Fmaster%2Fextension.json)
 
-Full featured Python Language Server Plugin (implements [PyLs](https://github.com/palantir/python-language-server)) for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe, PyDoc and CodeStyles.
+Full featured Python Language Server Plugin (implements [PyLS](https://github.com/palantir/python-language-server)) for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe, PyDoc and CodeStyles.
 
 Also supports all the Python Language Server plugins → `mypy`, `isort` and `black`
 
@@ -39,7 +44,22 @@ pip3 install 'python-language-server[all]'
 
 ## Working
 
-- All Features that PyLS supports.
+- Real time Linting (Pyflakes):
+
+![](https://raw.githubusercontent.com/mmshivesh/Python-Nova.novaextension/master/.github/images/realtimeLinting.png)
+
+- Hover actions on Functions and Modules:
+
+![](https://raw.githubusercontent.com/mmshivesh/Python-Nova.novaextension/master/.github/images/hover.png)
+
+- PyCodeStyle and PyDocStyle hints:
+
+![](https://raw.githubusercontent.com/mmshivesh/Python-Nova.novaextension/master/.github/images/doccode.gif)
+
+- Autocomplete using Jedi:
+
+![](https://raw.githubusercontent.com/mmshivesh/Python-Nova.novaextension/master/.github/images/autoComplete.gif)
+
 
 ## TODO
 
