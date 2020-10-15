@@ -1,25 +1,40 @@
-# Python Language Server (PyLS) for Nova
+# Python for Nova
 
-A Python Language Server (PyLS) implementation for [Panic's Nova](https://nova.app) editor.
+![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Latest%20Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmmshivesh%2FPyLS-Nova.novaextension%2Fmaster%2Fextension.json)
 
-🚧🚧 Under Development 🚧🚧
+Full featured Python Language Server Plugin (implements [PyLs](https://github.com/palantir/python-language-server)) for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe, PyDoc and CodeStyles.
+
+Also supports all the Python Language Server plugins → `mypy`, `isort` and `black`
 
 ## Installation
 
-Install dependencies using:
+1. Install dependencies using:
 
 ```bash
 pip3 install 'python-language-server[all]'
 ```
 
+2. Enable required modules from settings.
+
+3. (Optional) Install Python Language Server plugins and enable them from settings:
+
+- `mypy` plugin: `pip3 install pyls-mypy`
+
+- `isort` plugin: `pip3 install pyls-isort`
+
+- `black` plugin: `pip3 install pyls-black`
+
+
 ## Working
 
-- Error highlights
-- Auto completion (snippet fills broken, Core Nova Bug in v1.2)
-- Some Dynamic Preferences (Module enabling)
-- All Hard coded preferences
- 
-## Todo
+- All Features that PyLS supports.
+- Snippet fills are broken because of a Nova [Bug](https://github.com/mmshivesh/PyLS-Nova.novaextension/issues/1) in v1.2
 
-- Preferences
-- Link Preferences with arguments (Underway)
+## TODO
+
+- Verify for `virtualenv` based setups.
+- Test framework
+
+## Contributing
+
+Feel free to open PRs and Issues

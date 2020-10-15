@@ -1,12 +1,13 @@
 {
-    "identifier": "works.creativecode.PyLS-Nova",
-    "name": "Python Language Server",
+    "identifier": "works.creativecode.pythonova",
+    "name": "Python",
     "organization": "CreativeCodeWorks",
-    "description": "Python Language Server implementation for Nova",
-    "version": "0.0.2",
+    "description": "Full featured Python Plugin for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe and lots more.",
+    "version": "1.0.0",
     "license": "MIT",
-    "categories": ["languages"],
-    
+    "categories": [
+        "languages"
+    ],
     "main": "main.js",
     "bugs": "https://github.com/mmshivesh/PyLS-Nova.novaextension/issues",
     "repository": "https://github.com/mmshivesh/PyLS-Nova.novaextension",
@@ -35,6 +36,14 @@
                     "title": "Path to PyLS log File",
                     "placeholder": "/tmp/pyls.log",
                     "description": "PyLS log path"
+                },
+                {
+                    "key": "pyls.configurationSources",
+                    "title": "Configuration Sources",
+                    "type": "enum",
+                    "values": ["pycodestyle", "pyflakes"],
+                    "default": "pycodestyle",
+                    "description": "List of configuration sources to use."
                 }
             ]
         },
@@ -159,6 +168,36 @@
             "key": "works.creativecode.pylint.codeStyleCat",
             "children": [
                 {
+                    "title": "Jedi",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.jediOptionsSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.jedi.extra_paths",
+                            "title": "Extra Paths",
+                            "type": "string",
+                            "default": null,
+                            "placeholder":"<path-1>, <path-2>, ...",
+                            "description": "Define extra paths for jedi.Script. (Comma separated paths)"
+                        },
+                        {
+                            "key": "pyls.plugins.jedi.env_vars",
+                            "title": "Environment Variables",
+                            "type": "text",
+                            "default": null,
+                            "value": "{ \"env\": \"value\"}",
+                            "description": "Define environment variables for jedi.Script and Jedi.names."
+                        },
+                        {
+                            "key": "pyls.plugins.jedi.environment",
+                            "title": "Environment",
+                            "type": "string",
+                            "default": null,
+                            "description": "Define environment for jedi.Script and Jedi.names."
+                        }
+                    ]
+                },
+                {
                     "title": "Jedi Completion",
                     "type": "section",
                     "key": "works.creativecode.pyls.jediCompletionSec",
@@ -181,7 +220,7 @@
                             "key": "pyls.plugins.jedi_completion.fuzzy",
                             "type": "boolean",
                             "title": "Enable Fuzzy auto-completion",
-                            "default": false,
+                            "default": true,
                             "description": "Enable fuzzy searching when requesting autocomplete."
                         }
                     ]
@@ -195,96 +234,270 @@
                             "key": "pyls.plugins.jedi_definition.follow_imports",
                             "type": "boolean",
                             "default": true,
+                            "title": "Follow Imports",
                             "description": "The goto call will follow imports."
                         },
                         {
                             "key": "pyls.plugins.jedi_definition.follow_builtin_imports",
                             "type": "boolean",
                             "default": true,
+                            "title": "Follow Built-in Imports",
                             "description": "If follow_imports is True will decide if it follow builtin imports."
-                        },
+                        }
+                    ]
+                },
+                {
+                    "title": "Jedi Symbols",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.jediSymbolsSec",
+                    "children": [
                         {
                             "key": "pyls.plugins.jedi_symbols.all_scopes",
                             "type": "boolean",
+                            "title": "Enable All Scopes",
                             "default": true,
                             "description": "If True lists the names of all scopes instead of only the module namespace."
+                        }
+                    ]
+                },
+                {
+                    "title": "McCabe",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.McCabeSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.mccabe.threshold",
+                            "title": "Threshold",
+                            "type": "number",
+                            "default": 15,
+                            "description": "The minimum threshold that triggers warnings about cyclomatic complexity."
+                        }
+                    ]
+                },
+                {
+                    "title": "Preload",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.PreloadSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.preload.modules",
+                            "type": "string",
+                            "title": "Startup Import",
+                            "default": null,
+                            "description": "List of modules to import on startup (Comma separated paths)"
+                        }
+                    ]
+                },
+                {
+                    "title": "PyCodeStyle",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.PycodestyleSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.pycodestyle.exclude",
+                            "type": "string",
+                            "title": "Exclude Files/Directories",
+                            "description": "Exclude files or directories which match these patterns. (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pycodestyle.filename",
+                            "title": "Filenames to include",
+                            "type": "string",
+                            "default": null,
+                            "description": "When parsing directories, only check filenames matching these patterns. (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pycodestyle.select",
+                            "title": "Warnings/Error Codes to Select",
+                            "type": "string",
+                            "default": null,
+                            "description": "Select errors and warnings (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pycodestyle.ignore",
+                            "type": "string",
+                            "title": "Warnings/Error Codes to Ignore",
+                            "default": null,
+                            "description": "Ignore errors and warnings (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pycodestyle.hangClosing",
+                            "type": "boolean",
+                            "title": "Hang closing bracket",
+                            "default": null,
+                            "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
+                        },
+                        {
+                            "key": "pyls.plugins.pycodestyle.maxLineLength",
+                            "type": "number",
+                            "title": "Maximum Line Length",
+                            "default": 79,
+                            "description": "Set maximum allowed line length."
+                        }
+                    ]
+                },
+                {
+                    "title": "PyDocStyle",
+                    "type": "section",
+                    "key": "works.creativecode.pyls.PydocstyleSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.pydocstyle.convention",
+                            "type": "enum",
+                            "title": "Convention",
+                            "default": null,
+                            "values": [
+                                "pep257",
+                                "numpy"
+                            ],
+                            "description": "Choose the basic list of checked errors by specifying an existing convention."
+                        },
+                        {
+                            "key": "pyls.plugins.pydocstyle.addIgnore",
+                            "type": "string",
+                            "title": "Additionally Ignore Errors/Warnings",
+                            "default": null,
+                            "description": "Ignore errors and warnings in addition to the specified convention. (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pydocstyle.addSelect",
+                            "type": "string",
+                            "title": "Additionally Select Errors/Warnings",
+                            "default": null,
+                            "description": "Select errors and warnings in addition to the specified convention. (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pydocstyle.ignore",
+                            "type": "string",
+                            "title": "Ignore errors and warnings",
+                            "default": null,
+                            "description": "Ignore PyDocStyle errors and warnings (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pydocstyle.select",
+                            "type": "string",
+                            "default": null,
+                            "title": "Select errors and warnings",
+                            "description": "Select PyDocStyle errors and warnings (Comma separated values)"
+                        },
+                        {
+                            "key": "pyls.plugins.pydocstyle.match",
+                            "type": "string",
+                            "title": "Match Files",
+                            "default": "(?!test_).*\\.py",
+                            "description": "Check only files that exactly match the given regular expression; default is to match files that don't start with 'test_' but end with '.py'."
+                        },
+                        {
+                            "key": "pyls.plugins.pydocstyle.matchDir",
+                            "type": "string",
+                            "title": "Match Directories",
+                            "default": "[^\\.].*",
+                            "description": "Search only dirs that exactly match the given regular expression; default is to match dirs which do not begin with a dot."
+                        }
+                    ]
+                },
+                {
+                    "title": "PyLint",
+                    "type": "section",
+                    "key": "works.creativecode.pylint.pylintSec",
+                    "children": [
+                        {
+                            "key": "pyls.plugins.pylint.args",
+                            "type": "string",
+                            "title": "Arguments",
+                            "default": null,
+                            "description": "Arguments to pass to pylint."
+                        },
+                        {
+                            "key": "pyls.plugins.pylint.executable",
+                            "type": "path",
+                            "title": "Executable Path",
+                            "default": null,
+                            "description": "Executable to run pylint with. Enabling this will run pylint on unsaved files via stdin. Can slow down workflow. Only works with python3."
+                        }
+                    ]
+                },
+                {
+                    "title": "Rope",
+                    "type": "section",
+                    "key": "works.creativecode.pylint.ropeCat",
+                    "children": [
+                        {
+                            "key": "pyls.rope.ropeFolder",
+                            "title": "Rope Folder",
+                            "type": "path",
+                            "default": null,
+                            "description": "The name of the folder in which rope stores project configurations and data.  Pass `null` for not using such a folder at all."
+                        },
+                        {
+                            "key": "pyls.rope.extensionModules", 
+                            "type": "string",
+                            "title": "Extension Modules",
+                            "default": null,
+                            "description": "Builtin and c-extension modules that are allowed to be imported and inspected by rope."
                         }
                     ]
                 }
             ]
         },
         {
-            "title": "Linting Options",
+            "title": "Plugin Options",
+            "description": "Options for PyLS plugins.",
             "type": "section",
-            "key": "works.creativecode.pylint.codeStyleCat",
+            "key": "works.creativecode.pylint.plugin",
             "children": [
                 {
-                    "key": "pyls.plugins.pycodestyle.hangClosing",
-                    "type": "boolean",
-                    "default": null,
-                    "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
+                    "title": "MyPy",
+                    "type": "section",
+                    "description": "Enable after installing using → pip3 install pyls-mypy",
+                    "key": "works.creativecode.pyls.mypyPluginSec",
+                    "children": [
+                        {
+                            
+                            "key": "pyls.plugins.pyls_mypy.enabled",
+                            "type": "boolean",
+                            "title": "Enable MyPy",
+                            "default": false,
+                            "description": "Enable or disable the MyPy PyLS plugin."
+                        },
+                        {
+                            
+                            "key": "pyls.plugins.pyls_mypy.live_mode",
+                            "type": "boolean",
+                            "title": "Enable Live Mode",
+                            "default": false,
+                            "description": "Enable or disable Live Mode"
+                        }
+                    ]
                 },
                 {
-                    "key": "pyls.plugins.pycodestyle.maxLineLength",
-                    "type": "number",
-                    "default": null,
-                    "description": "Set maximum allowed line length."
-                },
+                "title": "iSort",
+                "type": "section",
+                "description": "Enable after installing using → pip3 install pyls-isort",
+                "key": "works.creativecode.pyls.isortPluginSec",
+                "children": [
+                    {
+                        
+                        "key": "pyls.plugins.pyls_isort.enabled",
+                        "type": "boolean",
+                        "title": "Enable iSort",
+                        "default": false,
+                        "description": "Enable or disable the iSort PyLS plugin."
+                    }]},
                 {
-                    "key": "pyls.plugins.pydocstyle.convention",
-                    "type": "string",
-                    "default": null,
-                    "enum": [
-                        "pep257",
-                        "numpy"
-                    ],
-                    "description": "Choose the basic list of checked errors by specifying an existing convention."
-                },
-                {
-                    "key": "pyls.plugins.pydocstyle.match",
-                    "type": "string",
-                    "default": "(?!test_).*\\.py",
-                    "description": "Check only files that exactly match the given regular expression; default is to match files that don't start with 'test_' but end with '.py'."
-                },
-                {
-                    "key": "pyls.plugins.pydocstyle.matchDir",
-                    "type": "string",
-                    "default": "[^\\.].*",
-                    "description": "Search only dirs that exactly match the given regular expression; default is to match dirs which do not begin with a dot."
-                },
-                {
-                    "key": "pyls.plugins.pylint.executable",
-                    "type": "string",
-                    "default": null,
-                    "description": "Executable to run pylint with. Enabling this will run pylint on unsaved files via stdin. Can slow down workflow. Only works with python3."
-                }
-            ]
-        },
-        {
-            "title": "Other Options",
-            "type": "section",
-            "key": "works.creativecode.pylint.codeStyleCat",
-            "children": [
-                {
-                    "key": "pyls.plugins.mccabe.threshold",
-                    "type": "number",
-                    "default": 15,
-                    "description": "The minimum threshold that triggers warnings about cyclomatic complexity."
-                },
-                {
-                    "key": "pyls.rope.extensionModules", 
-                    "type": "string",
-                    "default": null,
-                    "description": "Builtin and c-extension modules that are allowed to be imported and inspected by rope."
-                },
-                {
-                    "key": "pyls.configurationSources",
-                    "title": "Configuration Sources",
-                    "type": "enum",
-                    "values": ["pycodestyle", "pyflakes"],
-                    "default": "pycodestyle",
-                    "description": "List of configuration sources to use."
-                }
+                "title": "Black",
+                "type": "section",
+                "description": "Enable after installing using → pip3 install pyls-black",
+                "key": "works.creativecode.mypy.mypyPluginSec",
+                "children": [
+                    {
+                        
+                        "key": "pyls.plugins.pyls_black.enabled",
+                        "type": "boolean",
+                        "title": "Enable Black",
+                        "default": false,
+                        "description": "Enable or disable the Black PyLS plugin."
+                    }]}
             ]
         }
     ]
