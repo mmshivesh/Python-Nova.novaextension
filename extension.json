@@ -1,16 +1,16 @@
 {
-    "identifier": "works.creativecode.pythonova",
+    "identifier": "works.creativecode.python-nova",
     "name": "Python",
     "organization": "CreativeCodeWorks",
     "description": "Full featured Python Plugin for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe and lots more.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "categories": [
         "languages"
     ],
     "main": "main.js",
-    "bugs": "https://github.com/mmshivesh/PyLS-Nova.novaextension/issues",
-    "repository": "https://github.com/mmshivesh/PyLS-Nova.novaextension",
+    "bugs": "https://github.com/mmshivesh/Python-Nova.novaextension/issues",
+    "repository": "https://github.com/mmshivesh/Python-Nova.novaextension",
     "entitlements": {
         "process": true,
         "filesystem": "readonly"
@@ -206,8 +206,8 @@
                             "key": "pyls.plugins.jedi_completion.include_params",
                             "type": "boolean",
                             "title": "Include Function and Class Parameters",
-                            "default": true,
-                            "description": "Auto-completes methods and classes with tabstops for each parameter."
+                            "default": false,
+                            "description": "Auto-completes methods and classes with tabstops for each parameter. (Disabled by default because of a bug in Nova v1.2. Check README for more details.)"
                         },
                         {
                             "key": "pyls.plugins.jedi_completion.include_class_objects",
