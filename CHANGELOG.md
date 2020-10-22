@@ -1,3 +1,6 @@
+## Version 1.0.2
+- Add quick toggle to enable and disable line length checks with PyCodeStyle.
+
 ## Version 1.0.1
 - Update Known bugs
 

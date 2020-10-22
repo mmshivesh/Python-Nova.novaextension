@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "CreativeCodeWorks",
     "description": "Full featured Python Plugin for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe and lots more.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "categories": [
         "languages"
@@ -326,6 +326,13 @@
                             "title": "Hang closing bracket",
                             "default": null,
                             "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
+                        },
+                        {
+                            "key": "pyls.plugins.pycodestyle.enableLineLength",
+                            "type": "boolean",
+                            "title": "Enable Maximum Line Length Check",
+                            "default": false,
+                            "description": "Shortcut to ignore or show the E501 Line Length warning"
                         },
                         {
                             "key": "pyls.plugins.pycodestyle.maxLineLength",

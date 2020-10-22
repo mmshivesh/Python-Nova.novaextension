@@ -21,12 +21,36 @@ function parseJSON(string) {
     return JSON.parse(String(string).trim().replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"'));
 }
 
+function conditionalAppendArgumentsToArray(conditional, array, arg) {
+    console.log(`${conditional} [${array==''}] ${arg}`)
+    if (conditional) {
+        if (array == '') {
+            return [arg];
+        } else {
+            array.push(arg);
+            console.log("ignoring: ", array);
+            return array;
+        }
+    } else {
+        console.log("ignoring: ", array);
+        return array;
+    }
+}
+
 function parseSpaceSeparated(string) {
     // console.log(String(string).replace(/(^\s*,)|(,\s*$)/g, '').trim().split(/[\s,]+/));
     if (string == "" || string == null)  {
         return []
     } else {
         return String(string).replace(/(^\s*,)|(,\s*$)/g, '').trim().split(/[\s,]+/);
+    }
+}
+
+function showNotification(title, message) {
+    if (nova.inDevMode()) {
+        const notification = new NotificationRequest(title);
+        notification.body = message;
+        nova.notifications.add(notification);
     }
 }
 
@@ -62,7 +86,7 @@ class ExampleLanguageServer {
         // Create the client
         var serverOptions = {
             path: path,
-            args: ['-vv', '--log-file', getPreference('pyls.logPath', '/tmp/pyls.log')]
+            args: ['-v', '--log-file', getPreference('pyls.logPath', '/tmp/pyls.log')]
         };
         var clientOptions = {
             // The set of document syntaxes for which the server is valid
@@ -73,8 +97,9 @@ class ExampleLanguageServer {
         try {
             // Start the client
             client.start();
-            
-            client.sendNotification("workspace/didChangeConfiguration", {
+            showNotification("activating", "Extension is loading");
+            client.sendNotification("workspace/didChangeConfiguration", 
+            {
                 settings: {
                     "pyls": {
                         "env": {},
@@ -129,7 +154,10 @@ class ExampleLanguageServer {
                                 "exclude": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.exclude')),
                                 "filename": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.filename')),
                                 "select": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.select')),
-                                "ignore": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.ignore')),
+                                "ignore": conditionalAppendArgumentsToArray(
+                                    !getPreference('pyls.plugins.pycodestyle.enableLineLength'), 
+                                    parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.ignore')), 
+                                    "E501"),
                                 "hangClosing": getPreference('pyls.plugins.pycodestyle.hangClosing'),
                                 "maxLineLength": getPreference('pyls.plugins.pycodestyle.maxLineLength')
                             },
@@ -177,10 +205,10 @@ class ExampleLanguageServer {
                                 "enabled": getPreference('pyls.plugins.pyls_isort.enabled')
                             }
                         }
-                        
                     }
-                  }
-            });
+                }
+            }
+            );
             // console.log(nova.extension.path);
             // Add the client to the subscriptions to be cleaned up
             nova.subscriptions.add(client);
