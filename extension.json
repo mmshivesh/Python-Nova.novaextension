@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "CreativeCodeWorks",
     "description": "Full featured Python Plugin for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe and lots more.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "categories": [
         "languages"

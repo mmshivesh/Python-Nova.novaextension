@@ -1,3 +1,7 @@
+## Version 1.0.2
+- Update Readme
+- Preparation for Nova 2.0 update
+
 ## Version 1.0.1
 - Update Known bugs
 
