@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "CreativeCodeWorks",
     "description": "Full featured Python Plugin for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe and lots more.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "MIT",
     "categories": [
         "languages"
@@ -15,7 +15,14 @@
         "process": true,
         "filesystem": "readonly"
     },
-    
+    "configWorkspace": [
+        {
+            "key":"pyls.plugins.jedi.workspace.environment",
+            "title": "Workspace Jedi Environment Path",
+            "type": "path",
+            "description": "Jedi Environment override for the given workspace"
+        }
+    ],
     "config": [
         {   
             "title": "Basic Options",
@@ -29,6 +36,12 @@
                     "type": "path",
                     "placeholder": "/usr/local/bin/pyls",
                     "description": "Language server executable"
+                },
+                {
+                    "key": "pyls.enableLogging",
+                    "type": "boolean",
+                    "title": "Enable Logging",
+                    "description": "Enable logging for PyLS"
                 },
                 {
                     "key": "pyls.logPath",

@@ -16,6 +16,7 @@ Also supports all the Python Language Server plugins → `mypy`, `isort` and `bl
 - [x] Full Function hover tooltips with syntax highlighting
 - [x] Module and function docstrings
 - [x] PyDocStyle and PyCodeStyle flags
+- [x] McCabe Cyclomatic Complexity
 
 ## Known Issues
 

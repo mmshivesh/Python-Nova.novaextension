@@ -1,3 +1,7 @@
+## Version 1.0.3
+- Add option to enable logging (Disabled by default)
+- Add option to override Jedi environment at the workspace level.
+
 ## Version 1.0.2
 - Update Readme
 - Preparation for Nova 2.0 update
@@ -14,5 +18,4 @@
 - Comma separated string parser added
 
 ## Version 0.0.1
-
-Pre Release
+- Pre Release

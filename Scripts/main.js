@@ -3,7 +3,7 @@ var langserver = null;
 
 exports.activate = function() {
     // Do work when the extension is activated
-    langserver = new ExampleLanguageServer();
+    langserver = new PythonLanguageServer();
 }
 
 exports.deactivate = function() {
@@ -14,6 +14,18 @@ exports.deactivate = function() {
     }
 }
 
+// Show a notification with the given title and body when in dev mode.
+function showNotification(title, body) {
+    if (nova.inDevMode()) {
+        let request = new NotificationRequest("python-nova-message");
+        
+        request.title = nova.localize(title);
+        request.body = nova.localize(body);
+        nova.notifications.add(request);
+    }
+}
+
+// Parse JSON from a string and return an JSON object.
 function parseJSON(string) {
     if (string == undefined) {
         return null
@@ -21,8 +33,8 @@ function parseJSON(string) {
     return JSON.parse(String(string).trim().replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"'));
 }
 
+// Parse space or comma separated strings into a list
 function parseSpaceSeparated(string) {
-    // console.log(String(string).replace(/(^\s*,)|(,\s*$)/g, '').trim().split(/[\s,]+/));
     if (string == "" || string == null)  {
         return []
     } else {
@@ -30,6 +42,7 @@ function parseSpaceSeparated(string) {
     }
 }
 
+// Convenience function to parse preferences and optionally return a default value.
 function getPreference(string, def) {
     var pref = nova.config.get(string)
     if (pref == null) {
@@ -41,7 +54,7 @@ function getPreference(string, def) {
     }
 }
 
-class ExampleLanguageServer {
+class PythonLanguageServer {
     constructor() {
         // Observe the configuration setting for the server's location, and restart the server on change
         nova.config.observe('pyls.executable', function() {
@@ -61,9 +74,14 @@ class ExampleLanguageServer {
         
         // Create the client
         var serverOptions = {
-            path: path,
-            args: ['-vv', '--log-file', getPreference('pyls.logPath', '/tmp/pyls.log')]
+            path: path
         };
+        
+        // Enable logging.
+        if (getPreference("pyls.enableLogging", false)) {
+            serverOptions["args"] = ['-vv', '--log-file', getPreference('pyls.logPath', '/tmp/pyls.log')]
+        }
+        
         var clientOptions = {
             // The set of document syntaxes for which the server is valid
             syntaxes: ['python'],
@@ -90,7 +108,15 @@ class ExampleLanguageServer {
                                 "enabled": getPreference('pyls.plugins.jedi.enabled'),
                                 "extra_paths": parseSpaceSeparated(getPreference('pyls.plugins.jedi.extra_paths')),
                                 "env_vars": parseJSON(getPreference('pyls.plugins.jedi.env_vars')),
-                                "environment": getPreference('pyls.plugins.jedi.environment')
+                                "environment": (function(){
+                                    if (getPreference('pyls.plugins.jedi.workspace.environment') == undefined) {
+                                        console.log("Workspace Jedi environment undefined. Using global value");
+                                        return getPreference('pyls.plugins.jedi.environment');
+                                    } else {
+                                        console.log("Workspace Jedi environment overriden. Using workspace value");
+                                        return getPreference('pyls.plugins.jedi.workspace.environment');
+                                    }
+                                }()) // Override the current jedi environment if a workspace specific environment is defined.
                             },
                             "jedi_completion": {
                                 "enabled": getPreference('pyls.plugins.jedi_completion.enabled'),
@@ -181,14 +207,12 @@ class ExampleLanguageServer {
                     }
                   }
             });
-            // console.log(nova.extension.path);
             // Add the client to the subscriptions to be cleaned up
+            console.log("Added Language Client to subscriptions.");
             nova.subscriptions.add(client);
             this.languageClient = client;
         }
         catch (err) {
-            // If the .start() method throws, it's likely because the path to the language server is invalid
-            
             if (nova.inDevMode()) {
                 console.error(err);
             }
