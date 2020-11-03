@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "CreativeCodeWorks",
     "description": "Full featured Python Plugin for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe and lots more.",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "license": "MIT",
     "categories": [
         "languages"
@@ -35,20 +35,20 @@
                     "title": "Executable Path",
                     "type": "path",
                     "placeholder": "/usr/local/bin/pyls",
-                    "description": "Language server executable"
+                    "description": "Language server executable (Requires Extension Reload)"
                 },
                 {
                     "key": "pyls.enableLogging",
                     "type": "boolean",
                     "title": "Enable Logging",
-                    "description": "Enable logging for PyLS"
+                    "description": "Enable logging for PyLS (Requires Extension Reload)"
                 },
                 {
                     "key": "pyls.logPath",
                     "type": "path",
                     "title": "Path to PyLS log File",
                     "placeholder": "/tmp/pyls.log",
-                    "description": "PyLS log path"
+                    "description": "PyLS log path (Requires Extension Reload)"
                 },
                 {
                     "key": "pyls.configurationSources",
@@ -220,7 +220,7 @@
                             "type": "boolean",
                             "title": "Include Function and Class Parameters",
                             "default": false,
-                            "description": "Auto-completes methods and classes with tabstops for each parameter. (Disabled by default because of a bug in Nova v1.2. Check README for more details.)"
+                            "description": "Auto-completes methods and classes with tabstops for each parameter."
                         },
                         {
                             "key": "pyls.plugins.jedi_completion.include_class_objects",

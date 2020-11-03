@@ -1,3 +1,7 @@
+## Version 1.1.0
+- Automatically reload extension on preference changes.
+- Minor bug fixes in Jedi workspace environment override.
+
 ## Version 1.0.3
 - Add option to enable logging (Disabled by default)
 - Add option to override Jedi environment at the workspace level.
