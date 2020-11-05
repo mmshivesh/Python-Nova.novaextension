@@ -25,6 +25,25 @@ function showNotification(title, body) {
     }
 }
 
+
+// Append the argument to the array if the condition is true
+function conditionalAppendArgumentsToArray(conditional, array, arg) {
+    // If the passed conditional is true
+    if (conditional) {
+        // If the array is empty return an array with just the passed argument.
+        if (array == '') {
+            return [arg];
+        } else {
+            // Otherwise append to the existing array and return.
+            array.push(arg);
+            return array;
+        }
+    } else {
+        // If conditional is false, transparently return the passed array.
+        return array;
+    }
+}
+
 // Parse JSON from a string and return an JSON object.
 function parseJSON(string) {
     if (string == undefined) {
@@ -124,7 +143,10 @@ function getSettings() {
                         "exclude": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.exclude')),
                         "filename": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.filename')),
                         "select": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.select')),
-                        "ignore": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.ignore')),
+                        "ignore": conditionalAppendArgumentsToArray(
+                            getPreference('pyls.plugins.pycodestyle.disableLineLength'), 
+                            parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.ignore')), 
+                            "E501"),
                         "hangClosing": getPreference('pyls.plugins.pycodestyle.hangClosing'),
                         "maxLineLength": getPreference('pyls.plugins.pycodestyle.maxLineLength')
                     },
@@ -181,6 +203,9 @@ function getSettings() {
 class PythonLanguageServer {
     constructor() {
         this.addPreferenceObservers();
+        // First start.
+        showNotification("Starting extension.");
+        this.start(getPreference('pyls.executable', '/usr/local/bin/pyls'));
     }
 
     addPreferenceObservers() {
@@ -217,6 +242,7 @@ class PythonLanguageServer {
             'pyls.plugins.pycodestyle.select',
             'pyls.plugins.pycodestyle.ignore',
             'pyls.plugins.pycodestyle.hangClosing',
+            'pyls.plugins.pycodestyle.disableLineLength',
             'pyls.plugins.pycodestyle.maxLineLength',
             'pyls.plugins.pydocstyle.convention',
             'pyls.plugins.pydocstyle.addIgnore',
@@ -235,7 +261,7 @@ class PythonLanguageServer {
             'pyls.plugins.pyls_black.enabled'
         ];
         for (var i of keys) {
-            nova.config.observe(i, async function(newValue, oldValue) {
+            nova.config.onDidChange(i, async function(newValue, oldValue) {
                 console.log("Syncing preferences.");
                 if(this.languageClient) {
                     this.languageClient.sendNotification("workspace/didChangeConfiguration", getSettings())
@@ -249,18 +275,13 @@ class PythonLanguageServer {
             'pyls.logPath'
         ];
         for (var i of reloadKeys) {
-            nova.config.observe(i, async function(newValue, oldValue) {
+            nova.config.onDidChange(i, async function(newValue, oldValue) {
                 if(this.languageClient) {
                     showNotification("Stopping extension.");
-                    await this.languageClient.stop();
-
+                    await this.stop();
                     nova.subscriptions.remove(this.languageClient);
                     await this.start(getPreference('pyls.executable', '/usr/local/bin/pyls'));
-                    
-                    nova.subscriptions.add(client);
                 } else {
-                    // First start.
-                    showNotification("Starting extension.");
                     await this.start(getPreference('pyls.executable', '/usr/local/bin/pyls'));
                 }
             }, this);
@@ -270,7 +291,7 @@ class PythonLanguageServer {
             'pyls.plugins.jedi.workspace.environment'
         ];
         for (var i of workspaceKeys) {
-            nova.workspace.config.observe(i, async function(newValue, oldValue) {
+            nova.workspace.config.onDidChange(i, async function(newValue, oldValue) {
                 showNotification("Syncing Workspace Preferences.");
                 if(this.languageClient) {
                     this.languageClient.sendNotification("workspace/didChangeConfiguration", getSettings())
@@ -285,10 +306,7 @@ class PythonLanguageServer {
     }
     
     async start(path) {
-        if(this.languageClient) {
-            await this.languageClient.stop();
-            nova.subscriptions.remove(this.languageClient);
-        }
+        this.stop();
         
         // Create the client
         var serverOptions = {
@@ -304,6 +322,7 @@ class PythonLanguageServer {
             // The set of document syntaxes for which the server is valid
             syntaxes: ['python'],
         };
+        
         var client = new LanguageClient('PyLS', 'Python Language Server', serverOptions, clientOptions);
         
         try {

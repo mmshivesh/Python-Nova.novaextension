@@ -341,6 +341,13 @@
                             "description": "Hang closing bracket instead of matching indentation of opening bracket's line."
                         },
                         {
+                            "key": "pyls.plugins.pycodestyle.disableLineLength",
+                            "type": "boolean",
+                            "title": "Disable Maximum Line Length Check",
+                            "default": false,
+                            "description": "Shortcut to ignore the Maximum Line Length (E501) warning"
+                        },
+                        {
                             "key": "pyls.plugins.pycodestyle.maxLineLength",
                             "type": "number",
                             "title": "Maximum Line Length",
