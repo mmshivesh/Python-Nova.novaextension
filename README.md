@@ -17,12 +17,7 @@ Also supports all the Python Language Server plugins → `mypy`, `isort` and `bl
 - [x] Module and function docstrings
 - [x] PyDocStyle and PyCodeStyle flags
 - [x] McCabe Cyclomatic Complexity
-- [x] Automatic Plugin Reload on Preference changes.
-
-## Known Issues
-
-- [ ] Slow auto completion
-- [ ] Last line auto complete broken (Line number reporting is off)
+- [x] Automatic Preferences Reload on changes (Some preferences still need a full extension reload).
 
 ## Installation
 
