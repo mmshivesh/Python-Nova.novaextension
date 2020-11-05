@@ -83,7 +83,7 @@ function getSettings() {
                                 return getPreference('pyls.plugins.jedi.environment');
                             } else {
                                 console.log("Jedi environment overriden at Workspace. Using workspace value instead.");
-                                return getPreference('pyls.plugins.jedi.workspace.environment');
+                                return getPreference('pyls.plugins.jedi.workspace.environment', undefined, true);
                             }
                         }()) // Override the current jedi environment if a workspace specific environment is defined.
                     },
