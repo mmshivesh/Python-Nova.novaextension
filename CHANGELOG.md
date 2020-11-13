@@ -1,5 +1,5 @@
 ## Version 1.1.0
-- Automatically reload extension on preference changes.
+- Automatically reload extension on preference changes (WIP)
 - Minor bug fixes in Jedi workspace environment override.
 - Add quick toggle to enable and disable line length checks (E501) with PyCodeStyle.
 

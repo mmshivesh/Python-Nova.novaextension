@@ -58,4 +58,4 @@ pip3 install 'python-language-server[all]'
 
 ## Contributing
 
-Feel free to open PRs and Issues
+I would be extremely grateful if you could lend a hand in the development of this extension. PRs with new features and fixes would be greatly appreciated. Also, feel free to open bug reports.
