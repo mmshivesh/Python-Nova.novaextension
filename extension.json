@@ -352,6 +352,7 @@
                             "type": "number",
                             "title": "Maximum Line Length",
                             "default": 79,
+                            "max": 1024,
                             "description": "Set maximum allowed line length."
                         }
                     ]
