@@ -178,9 +178,6 @@ function getSettings() {
                     "yapf": {
                         "enabled": getPreference('pyls.plugins.yapf.enabled')
                     },
-                    "pydocstyle": {
-                        "enabled": getPreference('pyls.plugins.pydocstyle.enabled')
-                    },
                     
                     // Additional Plugin Preferences
                     "pyls_mypy": {
