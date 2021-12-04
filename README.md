@@ -5,7 +5,7 @@
 
 ![](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Latest%20Version&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fmmshivesh%2FPython-Nova.novaextension%2Fmaster%2Fextension.json)
 
-Full featured Python Language Server Plugin (implements [PyLS](https://github.com/palantir/python-language-server)) for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe, PyDoc and CodeStyles.
+Full featured Python Language Server plugin (implements [PyLS](https://github.com/python-lsp/python-lsp-server)) for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe, PyDoc and CodeStyles.
 
 Also supports all the Python Language Server plugins → `mypy`, `isort` and `black`
 
@@ -21,10 +21,10 @@ Also supports all the Python Language Server plugins → `mypy`, `isort` and `bl
 
 ## Installation
 
-1. Install dependencies using:
+1. Install the LSP server and its dependencies using:
 
 ```bash
-pip3 install 'python-language-server[all]'
+pip3 install 'python-lsp-server[all]'
 ```
 
 2. Enable required modules from settings.
