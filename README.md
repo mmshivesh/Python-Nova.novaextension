@@ -7,7 +7,7 @@
 
 Full featured Python Language Server plugin (implements [PyLS](https://github.com/python-lsp/python-lsp-server)) for Nova, supports Jedi Autocomplete, PyFlakes, PyLint, YAPF, Rope, McCabe, PyDoc and CodeStyles.
 
-Also supports all the Python Language Server plugins → `mypy`, `isort` and `black`
+Also supports the Python Language Server plugin `mypy`.
 
 ## Working Features
 
@@ -32,11 +32,6 @@ pip3 install 'python-lsp-server[all]'
 3. (Optional) Install Python Language Server plugins and enable them from settings:
 
 - `mypy` plugin: `pip3 install pyls-mypy`
-
-- `isort` plugin: `pip3 install pyls-isort`
-
-- `black` plugin: `pip3 install pyls-black`
-
 
 ## Features
 

@@ -221,12 +221,6 @@ function getSettings() {
                     "pyls_mypy": {
                         "enabled": getPreference('pyls.plugins.pyls_mypy.enabled'),
                         "live_mode": getPreference('pyls.plugins.pyls_mypy.live_mode')
-                    },
-                    "pyls_black": {
-                        "enabled": getPreference('pyls.plugins.pyls_black.enabled')
-                    },
-                    "pyls_isort": {
-                        "enabled": getPreference('pyls.plugins.pyls_isort.enabled')
                     }
                 }
                 
@@ -291,9 +285,7 @@ class PythonLanguageServer {
             'pyls.rope.ropeFolder',
             'pyls.rope.extensionModules', 
             'pyls.plugins.pyls_mypy.enabled',
-            'pyls.plugins.pyls_mypy.live_mode',
-            'pyls.plugins.pyls_isort.enabled',
-            'pyls.plugins.pyls_black.enabled'
+            'pyls.plugins.pyls_mypy.live_mode'
         ];
         for (var i of keys) {
             nova.config.onDidChange(i, async function(newValue, oldValue) {

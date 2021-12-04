@@ -489,35 +489,7 @@
                             "description": "Enable or disable Live Mode"
                         }
                     ]
-                },
-                {
-                "title": "iSort",
-                "type": "section",
-                "description": "Enable after installing using → pip3 install pyls-isort",
-                "key": "works.creativecode.pyls.isortPluginSec",
-                "children": [
-                    {
-                        
-                        "key": "pyls.plugins.pyls_isort.enabled",
-                        "type": "boolean",
-                        "title": "Enable iSort",
-                        "default": false,
-                        "description": "Enable or disable the iSort PyLS plugin."
-                    }]},
-                {
-                "title": "Black",
-                "type": "section",
-                "description": "Enable after installing using → pip3 install pyls-black",
-                "key": "works.creativecode.mypy.mypyPluginSec",
-                "children": [
-                    {
-                        
-                        "key": "pyls.plugins.pyls_black.enabled",
-                        "type": "boolean",
-                        "title": "Enable Black",
-                        "default": false,
-                        "description": "Enable or disable the Black PyLS plugin."
-                    }]}
+                }
             ]
         }
     ]
