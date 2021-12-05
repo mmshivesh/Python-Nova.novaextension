@@ -115,6 +115,39 @@ function getSettingsPyLSNamespace() {
     }
 }
 
+// Display a notification to the user if the plugin is configured to use 'python-language-server' as a server.
+function alertDeprecatedServerIfNeeded(serverBinPath) {
+    const ignoreConfigName = nova.extension.identifier + '.alerted-deprecated-server'
+    const isIgnoringAlert = nova.config.get(ignoreConfigName) === serverBinPath
+
+    if (isIgnoringAlert || nova.path.basename(serverBinPath) !== 'pyls') {
+        return
+    }
+
+    let notification = new NotificationRequest("python-nova-deprecated-server");
+
+    notification.title = nova.localize("python-language-server is deprecated");
+    notification.body = nova.localize('You should install python-lsp-server instead, and update your "language server executable" path accordingly in the preferences.');
+
+    notification.actions = [nova.localize("OK"), nova.localize("More info"), nova.localize("Ignore")];
+
+    let promise = nova.notifications.add(notification);
+    promise.then(reply => {
+        if (reply.actionIdx == 1) {
+            nova.openURL("https://github.com/mmshivesh/Python-Nova.novaextension/pull/18")
+        } else if (reply.actionIdx == 2) {
+            nova.config.set(ignoreConfigName, serverBinPath)
+        }
+    }, error => {
+        console.error(error);
+    });
+}
+
+function resetDeprecatedServerAlert() {
+    const ignoreConfigName = nova.extension.identifier + '.alerted-deprecated-server'
+    nova.config.remove(ignoreConfigName)
+}
+
 // Get and return the preferences dictionary
 function getSettings() {
     return {
@@ -321,6 +354,10 @@ class PythonLanguageServer {
                 }
             }, this);
         }
+
+        nova.config.onDidChange('pyls.executable', async function(newValue, oldValue) {
+            resetDeprecatedServerAlert()
+        }, this);
 
         let workspaceKeys = [
             'pyls.plugins.jedi.workspace.environment'
