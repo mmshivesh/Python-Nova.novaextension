@@ -78,11 +78,49 @@ function getPreference(string, def, workspace=false) {
     }
 }
 
+// Convenience function to get the 'pyls.executable' preference, or default to an appropriate bin in the user's $PATH.
+function getPyLSExecutablePreference() {
+    return getPreference('pyls.executable', searchUsablePyLSExecutable())
+}
+
+// Try to find an appropriate bin for the PyLSP server in the user's $PATH.
+function searchUsablePyLSExecutable() {
+    const envPath = nova.environment['PATH']
+    if (envPath === undefined) {
+        return undefined
+    }
+
+    const possibleBins = ['pylsp', 'pyls']
+    const possiblePaths = envPath.split(':')
+    for (const bin of possibleBins) {
+        for (const path of possiblePaths) {
+            const binPath = path + '/' + bin
+            if (nova.fs.access(binPath, nova.fs.F_OK | nova.fs.X_OK)) {
+                return binPath
+            }
+        }
+    }
+
+    return undefined
+}
+
+// Return the appropriate settings namespace for the configured Python LSP implementation.
+function getSettingsPyLSNamespace() {
+    if (getPyLSExecutablePreference() === "pyls") {
+        return "pyls"
+    } else {
+        // If the selected binary is not explicitly pyls, default to the fork
+        // pylsp as it is more up to date and maintained.
+        return "pylsp"
+    }
+}
+
 // Get and return the preferences dictionary
 function getSettings() {
     return {
+    const pylsNamespace = getSettingsPyLSNamespace()
         settings: {
-            "pyls": {
+            pylsNamespace: {
                 "env": {},
                 "configurationSources": [
                     getPreference('pyls.configurationSources')
@@ -202,7 +240,7 @@ class PythonLanguageServer {
         this.addPreferenceObservers();
         // First start.
         showNotification("Starting extension.");
-        this.start(getPreference('pyls.executable', '/usr/local/bin/pyls'));
+        this.start(getPyLSExecutablePreference());
     }
 
     addPreferenceObservers() {
@@ -277,9 +315,9 @@ class PythonLanguageServer {
                     showNotification("Stopping extension.");
                     await this.stop();
                     nova.subscriptions.remove(this.languageClient);
-                    await this.start(getPreference('pyls.executable', '/usr/local/bin/pyls'));
+                    await this.start(getPyLSExecutablePreference());
                 } else {
-                    await this.start(getPreference('pyls.executable', '/usr/local/bin/pyls'));
+                    await this.start(getPyLSExecutablePreference());
                 }
             }, this);
         }
