@@ -24,7 +24,7 @@
         }
     ],
     "config": [
-        {   
+        {
             "title": "Basic Options",
             "description": "Basic PyLS configutation options",
             "type": "section",
@@ -67,7 +67,6 @@
             "key": "works.creativecode.pyls.modulesSec",
             "children": [
                 {
-                    
                     "key": "pyls.plugins.jedi.enabled",
                     "type": "boolean",
                     "title": "Enable Jedi",
@@ -450,7 +449,7 @@
                             "description": "The name of the folder in which rope stores project configurations and data.  Pass `null` for not using such a folder at all."
                         },
                         {
-                            "key": "pyls.rope.extensionModules", 
+                            "key": "pyls.rope.extensionModules",
                             "type": "string",
                             "title": "Extension Modules",
                             "default": null,
@@ -473,7 +472,6 @@
                     "key": "works.creativecode.pyls.mypyPluginSec",
                     "children": [
                         {
-                            
                             "key": "pyls.plugins.pyls_mypy.enabled",
                             "type": "boolean",
                             "title": "Enable MyPy",
@@ -481,7 +479,6 @@
                             "description": "Enable or disable the MyPy PyLS plugin."
                         },
                         {
-                            
                             "key": "pyls.plugins.pyls_mypy.live_mode",
                             "type": "boolean",
                             "title": "Enable Live Mode",
@@ -489,35 +486,7 @@
                             "description": "Enable or disable Live Mode"
                         }
                     ]
-                },
-                {
-                "title": "iSort",
-                "type": "section",
-                "description": "Enable after installing using → pip3 install pyls-isort",
-                "key": "works.creativecode.pyls.isortPluginSec",
-                "children": [
-                    {
-                        
-                        "key": "pyls.plugins.pyls_isort.enabled",
-                        "type": "boolean",
-                        "title": "Enable iSort",
-                        "default": false,
-                        "description": "Enable or disable the iSort PyLS plugin."
-                    }]},
-                {
-                "title": "Black",
-                "type": "section",
-                "description": "Enable after installing using → pip3 install pyls-black",
-                "key": "works.creativecode.mypy.mypyPluginSec",
-                "children": [
-                    {
-                        
-                        "key": "pyls.plugins.pyls_black.enabled",
-                        "type": "boolean",
-                        "title": "Enable Black",
-                        "default": false,
-                        "description": "Enable or disable the Black PyLS plugin."
-                    }]}
+                }
             ]
         }
     ]

@@ -18,13 +18,12 @@ exports.deactivate = function() {
 function showNotification(title, body) {
     if (nova.inDevMode()) {
         let request = new NotificationRequest("python-nova-message");
-        
+
         request.title = nova.localize(title);
         request.body = nova.localize(body);
         nova.notifications.add(request);
     }
 }
-
 
 // Append the argument to the array if the condition is true
 function conditionalAppendArgumentsToArray(conditional, array, arg) {
@@ -117,8 +116,8 @@ function getSettingsPyLSNamespace() {
 
 // Get and return the preferences dictionary
 function getSettings() {
-    return {
     const pylsNamespace = getSettingsPyLSNamespace()
+    return {
         settings: {
             pylsNamespace: {
                 "env": {},
@@ -182,8 +181,8 @@ function getSettings() {
                         "filename": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.filename')),
                         "select": parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.select')),
                         "ignore": conditionalAppendArgumentsToArray(
-                            getPreference('pyls.plugins.pycodestyle.disableLineLength'), 
-                            parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.ignore')), 
+                            getPreference('pyls.plugins.pycodestyle.disableLineLength'),
+                            parseSpaceSeparated(getPreference('pyls.plugins.pycodestyle.ignore')),
                             "E501"),
                         "hangClosing": getPreference('pyls.plugins.pycodestyle.hangClosing'),
                         "maxLineLength": getPreference('pyls.plugins.pycodestyle.maxLineLength')
@@ -202,7 +201,7 @@ function getSettings() {
                         "enabled": getPreference('pyls.plugins.pylint.enabled'),
                         "args": parseSpaceSeparated(getPreference('pyls.plugins.pylint.args')),
                         "executable": getPreference('pyls.plugins.pylint.executable')
-                        
+
                     },
                     "rope_completion": {
                         "enabled": getPreference('pyls.plugins.rope_completion.enabled')
@@ -216,20 +215,13 @@ function getSettings() {
                     "yapf": {
                         "enabled": getPreference('pyls.plugins.yapf.enabled')
                     },
-                    
+
                     // Additional Plugin Preferences
                     "pyls_mypy": {
                         "enabled": getPreference('pyls.plugins.pyls_mypy.enabled'),
                         "live_mode": getPreference('pyls.plugins.pyls_mypy.live_mode')
-                    },
-                    "pyls_black": {
-                        "enabled": getPreference('pyls.plugins.pyls_black.enabled')
-                    },
-                    "pyls_isort": {
-                        "enabled": getPreference('pyls.plugins.pyls_isort.enabled')
                     }
                 }
-                
             }
           }
     }
@@ -289,11 +281,8 @@ class PythonLanguageServer {
             'pyls.plugins.pylint.args',
             'pyls.plugins.pylint.executable',
             'pyls.rope.ropeFolder',
-            'pyls.rope.extensionModules', 
-            'pyls.plugins.pyls_mypy.enabled',
-            'pyls.plugins.pyls_mypy.live_mode',
-            'pyls.plugins.pyls_isort.enabled',
-            'pyls.plugins.pyls_black.enabled'
+            'pyls.rope.extensionModules',
+            'pyls.plugins.pyls_mypy.enabled'
         ];
         for (var i of keys) {
             nova.config.onDidChange(i, async function(newValue, oldValue) {
@@ -303,7 +292,7 @@ class PythonLanguageServer {
                 }
             }, this);
         }
-        
+
         let reloadKeys = [
             'pyls.executable',
             'pyls.enableLogging',
@@ -335,31 +324,31 @@ class PythonLanguageServer {
         }
         // showNotification(`Monitoring ${keys.length + reloadKeys.length + workspaceKeys.length} Preferences.`);
     }
-    
+
     deactivate() {
         this.stop();
     }
-    
+
     async start(path) {
         this.stop();
-        
+
         // Create the client
         var serverOptions = {
             path: path
         };
-        
+
         // Enable logging.
         if (getPreference("pyls.enableLogging", false)) {
             serverOptions["args"] = ['-vv', '--log-file', getPreference('pyls.logPath', '/tmp/pyls.log')]
         }
-        
+
         var clientOptions = {
             // The set of document syntaxes for which the server is valid
             syntaxes: ['python'],
         };
-        
+
         var client = new LanguageClient('PyLS', 'Python Language Server', serverOptions, clientOptions);
-        
+
         try {
             // Start the client
             client.start();
@@ -375,7 +364,7 @@ class PythonLanguageServer {
             }
         }
     }
-    
+
     stop() {
         if (this.languageClient) {
             this.languageClient.stop();
