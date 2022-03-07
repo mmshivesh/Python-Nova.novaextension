@@ -117,10 +117,10 @@ function getSettingsPyLSNamespace() {
 
 // Get and return the preferences dictionary
 function getSettings() {
-    return {
     const pylsNamespace = getSettingsPyLSNamespace()
+    return {
         settings: {
-            pylsNamespace: {
+            [pylsNamespace]: {
                 "env": {},
                 "configurationSources": [
                     getPreference('pyls.configurationSources')
